@@ -18,7 +18,7 @@
 
      <!-- form -->
     <div class="container">
-        <form action="">
+        <form action="payment_success.html" method="post">
             <div class="row">
                 <div class="col">
                     <h3 class="title">billing address</h3>
@@ -83,24 +83,35 @@
                     </div>
                 </div>
 
-                <input type="submit" value="proceed to checkout" class="submit-btn">
+                <div class="inputBox">
+                    <span>phone number :</span>
+                    <input type="text" name="phone" placeholder="91-000-000-000" required>
+                </div>
 
+                <input type="submit" value="proceed to checkout" class="submit-btn">
             </div>
         </form>
     </div>
 
 
     <script>
-        var style = document.createElement('style');
-        var position = 'right';
-
-        style.innerHTML = `
-        @keyframes my-animation{
-          0%{${position}:-${document.querySelector('.text').offsetWidth + 10}px;}
-          100%{${position}:100%;}
-        }`;
-
-        document.head.append(style);
+        // simple client-side handler: validate and redirect
+        document.querySelector('form').addEventListener('submit', function(e){
+          e.preventDefault();
+          const phone = this.querySelector('input[name="phone"]')?.value || '';
+          const email = this.querySelector('input[type="email"]')?.value || '';
+          if(!phone.match(/^\d{10}$/)){
+            alert('Enter a valid 10-digit phone number.');
+            return;
+          }
+          if(!email){
+            alert('Enter email.');
+            return;
+          }
+          // replace with actual payment integration or server call
+          alert('Proceeding to checkout...');
+          window.location.href = 'payment_success.html';
+        });
     </script>
 
 </body>
